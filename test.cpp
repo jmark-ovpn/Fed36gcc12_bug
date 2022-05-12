@@ -20,16 +20,12 @@ private:
     class Base
     {
     public:
-        ValueType type() const
-        {
+        ValueType type() const {
             return type_;
         }
 
     protected:
-        Base(const ValueType type)
-                : type_(type)
-        {
-        }
+        Base(const ValueType type) : type_(type) {}
 
         virtual ~Base() {}
 
@@ -43,29 +39,20 @@ public:
     class Value
     {
     public:
-        Value()
-                : px(nullptr)
-        {
-        }
+        Value() : px(nullptr) {}
 
-        explicit Value(const ValueType type)
-                : px(new_value(type))
-        {
-        }
+        explicit Value(const ValueType type) : px(new_value(type)) {}
 
-        ~Value()
-        {
+        ~Value() {
             delete px;
         }
 
-        ValueType type() const
-        {
+        ValueType type() const {
             return value()->type();
         }
 
         // Return true if empty array, empty object, otherwise, false.
-        bool empty() const
-        {
+        bool empty() const {
             const Base* v = value();
             switch (v->type())
             {
@@ -79,18 +66,15 @@ public:
         }
 
     private:
-        const Base* value() const
-        {
+        const Base* value() const {
             return px;
         }
 
-        Base* value()
-        {
+        Base* value() {
             return px;
         }
 
-        static Base* new_value(const ValueType type)
-        {
+        static Base* new_value(const ValueType type) {
             switch (type)
             {
             case arrayValue:
@@ -108,14 +92,11 @@ private:
     class ArrayValue : public Base
     {
     public:
-        ArrayValue()
-                : Base(arrayValue)
-        {
+        ArrayValue() : Base(arrayValue) {
             array.reserve(10);
         }
 
-        bool empty() const
-        {
+        bool empty() const {
             return array.empty();
         }
 
@@ -125,13 +106,9 @@ private:
     class ObjectValue : public Base
     {
     public:
-        ObjectValue()
-                : Base(objectValue)
-        {
-        }
+        ObjectValue() : Base(objectValue) {}
 
-        bool empty() const
-        {
+        bool empty() const {
             return map.empty();
         }
 
