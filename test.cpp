@@ -13,8 +13,6 @@ public:
         objectValue,
     };
 
-    typedef size_t ArrayIndex;
-
 private:
     class ObjectValue;
     class ArrayValue;
@@ -66,8 +64,7 @@ public:
             return value()->type();
         }
 
-        // Return true if empty array, empty object, empty string, or null;
-        // otherwise, false.
+        // Return true if empty array, empty object, otherwise, false.
         bool empty() const
         {
             const Base* v = value();
@@ -82,24 +79,7 @@ public:
             }
         }
 
-        // Reserve size in array
-        void reserve(const ArrayIndex size)
-        {
-            Base* v = value();
-            switch (v->type())
-            {
-            case arrayValue:
-                static_cast<ArrayValue*>(v)->reserve(size);
-                break;
-            }
-        }
-
     private:
-        Value(Base* base)
-                : px(base)
-        {
-        }
-
         const Base* value() const
         {
             return px;
@@ -132,16 +112,12 @@ private:
         ArrayValue()
                 : Base(arrayValue)
         {
+            array.reserve(10);
         }
 
         bool empty() const
         {
             return array.empty();
-        }
-
-        void reserve(const ArrayIndex size)
-        {
-            array.reserve(size);
         }
 
         std::vector<Value> array;
@@ -168,7 +144,6 @@ private:
 int main() {
     Json::Value ja(Json::arrayValue);
 
-    ja.reserve(10);
     if (ja.empty())
         std::cout << "EMPTY!" << std::endl;
 
