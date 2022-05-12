@@ -55,8 +55,7 @@ public:
 
         ~Value()
         {
-            if (px)
-                delete px;
+            delete px;
         }
 
         ValueType type() const
