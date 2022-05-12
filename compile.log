@@ -1,0 +1,25 @@
+-*- mode: compilation; default-directory: "/Docker_share/" -*-
+Compilation started at Thu May 12 19:13:31
+
+make
+g++ -o test -O2 -Warray-bounds -Werror test.cpp
+In file included from /usr/include/c++/12/map:60,
+                 from test.cpp:3:
+In member function ‘bool std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::empty() const [with _Key = std::__cxx11::basic_string<char>; _Val = std::pair<const std::__cxx11::basic_string<char>, Json::Value>; _KeyOfValue = std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, Json::Value> >; _Compare = std::less<std::__cxx11::basic_string<char> >; _Alloc = std::allocator<std::pair<const std::__cxx11::basic_string<char>, Json::Value> >]’,
+    inlined from ‘bool std::map<_Key, _Tp, _Compare, _Alloc>::empty() const [with _Key = std::__cxx11::basic_string<char>; _Tp = Json::Value; _Compare = std::less<std::__cxx11::basic_string<char> >; _Alloc = std::allocator<std::pair<const std::__cxx11::basic_string<char>, Json::Value> >]’ at /usr/include/c++/12/bits/stl_map.h:476:26,
+    inlined from ‘bool Json::ObjectValue::empty() const’ at test.cpp:112:29,
+    inlined from ‘bool Json::Value::empty() const’ at test.cpp:62:65,
+    inlined from ‘int main()’ at test.cpp:123:17:
+/usr/include/c++/12/bits/stl_tree.h:1028:24: error: array subscript ‘const std::_Rb_tree<std::__cxx11::basic_string<char>, std::pair<const std::__cxx11::basic_string<char>, Json::Value>, std::_Select1st<std::pair<const std::__cxx11::basic_string<char>, Json::Value> >, std::less<std::__cxx11::basic_string<char> >, std::allocator<std::pair<const std::__cxx11::basic_string<char>, Json::Value> > >[0]’ is partly outside array bounds of ‘unsigned char [40]’ [-Werror=array-bounds]
+ 1028 |       { return _M_impl._M_node_count == 0; }
+      |                ~~~~~~~~^~~~~~~~~~~~~
+In static member function ‘static Json::Base* Json::Value::new_value(Json::ValueType)’,
+    inlined from ‘Json::Value::Value(Json::ValueType)’ at test.cpp:44:60,
+    inlined from ‘int main()’ at test.cpp:121:36:
+test.cpp:81:39: note: at offset 16 into object of size 40 allocated by ‘operator new’
+   81 |                 return new ArrayValue();
+      |                                       ^
+cc1plus: all warnings being treated as errors
+make: *** [Makefile:4: test] Error 1
+
+Compilation exited abnormally with code 2 at Thu May 12 19:13:31
